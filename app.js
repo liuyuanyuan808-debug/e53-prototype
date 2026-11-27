@@ -228,7 +228,8 @@
       const badge=$(`[data-device-fault="${side}"]`);
       if(badge){
         const hasReminder=issues.data.faults.some(fault=>fault.side===side&&issues.definitions[fault.code].kind==='reminder');
-        badge.hidden=!blocked&&!hasReminder;
+        const duplicateWholeDeviceBadge=wholeDeviceFault&&side==='L';
+        badge.hidden=duplicateWholeDeviceBadge||(!blocked&&!hasReminder);
         badge.dataset.severity=blocked?'blocking':'reminder';
         badge.setAttribute('aria-controls',blocked?'event-blocker':'event-reminder');
         const sideName=side==='L'?'左侧':'右侧';
